@@ -11,39 +11,58 @@ const getAllProducts = (req, res) => {
     //   return;
     // });
 
-    connection.query("SELECT * FROM product", function (error, result) {
-      if (error) throw error;
-      //el callback function permite obtener el resultado
-      //console.log(result);
-      connection.destroy();
-      res.send(result);
-    });
+    connection.query(
+      "SELECT * FROM product, category WHERE product.category = category.id ORDER BY category.name",
+      function (error, result) {
+        if (error) throw error;
+        //el callback function permite obtener el resultado
+        connection.destroy();
+        res.send(result);
+      }
+    );
   } catch (error) {
-    //console.log(error);
     res.status(500);
     res.send(error);
   }
 };
 
-const searchProduct = (req, res) => {
+const getProductsById = (req, res) => {
   try {
     const { id } = req.params;
 
     const connection = mysql.createConnection(db_config);
 
     connection.query(
-      "SELECT * FROM product WHERE id = ?",
+      "SELECT * FROM product, category WHERE product.category = category.id AND category.id = ?",
       id,
       function (error, result) {
         if (error) throw error;
-        //el callback function permite obtener el resultado
-        //console.log(result);
         connection.destroy();
         res.send(result);
       }
     );
   } catch (error) {
-    //console.log(error);
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+const searchProduct = (req, res) => {
+  try {
+    const { search } = req.params;
+    const searchstr = "%" + search.toString() + "%";
+    const connection = mysql.createConnection(db_config);
+
+    connection.query(
+      "SELECT * FROM product WHERE product.name LIKE ?",
+      searchstr,
+      function (error, result) {
+        if (error) throw error;
+        connection.destroy();
+        res.send(result);
+      }
+    );
+  } catch (error) {
     res.status(500);
     res.send(error.message);
   }
@@ -51,5 +70,6 @@ const searchProduct = (req, res) => {
 
 module.exports = {
   getAllProducts,
+  getProductsById,
   searchProduct,
 };

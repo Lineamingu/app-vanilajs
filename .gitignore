@@ -1,5 +1,6 @@
 # nodejs
 node_modules
+client
 
 ## environment variables
 .env
