@@ -33,7 +33,7 @@ const getProductsById = (req, res) => {
     const connection = mysql.createConnection(db_config);
 
     connection.query(
-      "SELECT * FROM product, category WHERE product.category = category.id AND category.id = ?",
+      "SELECT product.id, product.name, product.url_image, product.price, product.category FROM product, category WHERE product.category = category.id AND category.id = ?",
       id,
       function (error, result) {
         if (error) throw error;
