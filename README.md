@@ -73,7 +73,7 @@ En este caso, se tienen 3 rutas con 3 controladores cada uno, los cuales se expl
 const mysql = require("mysql");
 const db_config = require("../db");
 ```
-- 6.1: getAllProducts:
+- 6.1. getAllProducts:
 
 **GET** | ```http://ec2-54-82-194-198.compute-1.amazonaws.com/```
 
@@ -105,7 +105,7 @@ const getAllProducts = (req, res) => {
 };
 ```
 
-- 6.2: getProductsById: Este controlador utiliza el id (que debe venir en el request desde la ruta, e idica la categoría de producto) para retornar todos los productos con la categoría correspondiente:
+- 6.2. getProductsById: Este controlador utiliza el id (que debe venir en el request desde la ruta, e idica la categoría de producto) para retornar todos los productos con la categoría correspondiente:
 
 **GET** | ```http://ec2-54-82-194-198.compute-1.amazonaws.com/products/{id}```
 
@@ -132,7 +132,7 @@ const getProductsById = (req, res) => {
 };
 ```
 
-- 6.3 searchProduct: Este controlador utiliza el parametro de la request para realizar una busqueda entre los nombres de los productos. Antes de realizar el query, se estandariza el parametro (search -> search.toString() para volverlo string, y además envolverlo en % % segun requerimiento de la query):
+- 6.3. searchProduct: Este controlador utiliza el parametro de la request para realizar una busqueda entre los nombres de los productos. Antes de realizar el query, se estandariza el parametro (search -> search.toString() para volverlo string, y además envolverlo en % % segun requerimiento de la query):
 
 **GET** | ```http://ec2-54-82-194-198.compute-1.amazonaws.com/product-search/{search}```
 
